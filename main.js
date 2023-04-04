@@ -19,23 +19,34 @@ console.log(renderer);
 
 
 renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(devicePixelRatio);
+
 document.body.appendChild(renderer.domElement);
 
-const boxGeometry = new THREE.BoxGeometry(1,1,1);
+// Mesh = geometry + material
+const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
 
-const material = new THREE.MeshBasicMaterial({color:0x00ff00});
+const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 
 console.log(boxGeometry);
 console.log(material);
 
-const mesh = new THREE.Mesh(boxGeometry,material);
+const mesh = new THREE.Mesh(boxGeometry, material);
 console.log(mesh);
 
 scene.add(mesh);
 
 camera.position.z = 5;
 
-renderer.render(scene,camera);
+function animate() {
+    requestAnimationFrame(animate);
+    renderer.render(scene, camera);
+    mesh.rotation.x += .01;
+    mesh.rotation.y += .01;
+}
+
+
+animate();
 
 
 
