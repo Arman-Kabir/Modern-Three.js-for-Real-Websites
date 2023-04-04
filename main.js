@@ -28,12 +28,17 @@ camera.position.z = 5;
 
 // Plane Geo
 const planeGeometry = new THREE.PlaneGeometry(5, 5, 10, 10);
-const planeMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000,side:THREE.DoubleSide });
+const planeMaterial = new THREE.MeshPhongMaterial({ color: 0xff0000,side:THREE.DoubleSide });
 
 const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial);
 scene.add(planeMesh);
 
 console.log(planeGeometry);
+
+const light = new THREE.DirectionalLight(0xffffff,1);
+light.position.set(0,0,1);
+scene.add(light);
+
 
 function animate() {
     requestAnimationFrame(animate);
