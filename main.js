@@ -1,8 +1,54 @@
 import './style.css';
 import * as THREE from 'three';
-
 //To install it from CDN 
 // import * as THREE from 'https://unpkg.com/three@0.149.0/build/three.module.js';
+import * as dat from 'dat.gui';
+// console.log(dat);
+
+const gui = new dat.GUI();
+const world = {
+    plane:{
+        width:10,
+        height:10
+    }
+}
+// console.log(gui);
+gui.add(world.plane,'width',1,20).onChange(()=>{
+    // console.log(planeMesh.geometry);
+    planeMesh.geometry.dispose();
+    
+    planeMesh.geometry = new THREE.PlaneGeometry(world.plane.width,world.plane.height, 10, 10);
+
+    const { array } = planeMesh.geometry.attributes.position;
+
+    for (let i = 0; i < array.length; i += 3) {
+        const x = array[i];
+        const y = array[i + 1];
+        const z = array[i + 2];
+    
+        array[i + 2] = z + Math.random();
+    
+        // console.log(array[i]);
+    }
+
+    // console.log(world.plane.width);
+});
+
+gui.add(world.plane,'height',1,20).onChange(()=>{
+    planeMesh.geometry.dispose();
+    planeMesh.geometry = new THREE.PlaneGeometry(world.plane.width,world.plane.height, 10, 10);
+
+    const { array } = planeMesh.geometry.attributes.position;
+
+    for (let i = 0; i < array.length; i += 3) {
+        const x = array[i];
+        const y = array[i + 1];
+        const z = array[i + 2];   
+        array[i + 2] = z + Math.random();
+    }
+});
+
+
 
 
 const scene = new THREE.Scene();
@@ -27,7 +73,7 @@ document.body.appendChild(renderer.domElement);
 camera.position.z = 5;
 
 // Plane Geo
-const planeGeometry = new THREE.PlaneGeometry(5, 5, 10, 10);
+const planeGeometry = new THREE.PlaneGeometry(10,10, 10, 10);
 
 const planeMaterial = new THREE.MeshPhongMaterial({
     color: 0xff0000,
